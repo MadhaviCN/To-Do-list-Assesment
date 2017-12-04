@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script src="ToDoController.js"></script>	
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>	
+		<link rel="stylesheet" href="style.css"/>
+	<body ng-app="angularApp" ng-controller="HomeController" class="">
+	<div class="col-md-12 tailDiv">
+		<h1>To-Do List</h1>
+	</div>
+		<div class="col-md-12 col-sm-12 col-xs-12 mainDiv " >
+			<div class="col-md-10" style="margin-bottom:10px">
+				<button type = "button" class="btn btn-primary" ng-click="showAddNewDiv()"/><i class="glyphicon glyphicon-plus">AddNewList</i></button>
+				<button type = "button" class="btn btn-primary" ng-click="showAddedList()"/><i class="glyphicon glyphicon-plus">ShowList</i></button>
+			</div>
+			<div class="col-md-2">
+				<button type = "button" class="btn btn-primary" ng-click="logout()"/><i class="glyphicon glyphicon-off">Logout</i></button>
+			</div>
+			<div class="col-md-6 form-control secondDiv" ng-if="addNewFlag">
+				<form name="form1" role="form">
+					<div class="form-group" ng-class="{ 'has-error': form.todoname.$dirty && form.todoname.$error.required }">
+						<label for="todoname">To-Do list name:</label>
+						<input type="text" name="todoname" id="todo" class="form-control" ng-model="todolists.todoname" required />
+						<span ng-show="form1.todoname.$dirty && form1.todoname.$error.required" class="help-block">To-Do list is required</span>
+					</div>
+					<input type="submit" ng-disabled="form1.$invalid" class="btn btn-primary" ng-click="submitListName()"/>
+				</form>
+			</div>
+			<div class="col-md-6 form-control secondDiv" ng-if="showEditFlag">
+				<form name="form2" role="form">
+					<div class="form-group" ng-class="{ 'has-error': form.todo.$dirty && form.todo.$error.required }">
+						<label for="todo">Items:</label>
+						<input type="text" name="todo" id="todo" class="form-control" ng-model="todovalue.items" required />
+						<span ng-show="form.todo.$dirty && form.todo.$error.required" class="help-block">To-Do list is required</span>
+					</div>
+					<div class="form-group" ng-class="{ 'has-error': form.date.$dirty && form.date.$error.required }">
+						<label for="date">Date:</label>
+						<input type="text" name = "date" ng-model="AvailableDate.date" class="form-control" jqdatepicker required/>
+						<span ng-show="form.date.$dirty && form.date.$error.required" class="help-block">date is required</span>
+					</div>
+					<input type="button" value="Add" ng-if="!showSave" ng-disabled="form2.$invalid" class="btn btn-primary" ng-click="addItems()"/>
+					<input type="button" value="Save changes" ng-disabled="form2.$invalid" ng-if="showSave" class="btn btn-primary" ng-click="saveToDos()"/>
+				</form>
+			</div>
+			<table ng-if="newToDoListFlag" class="table table-bordered">
+				<tr>
+					<th>Table List</th>
+					<th>Actions</th>
+				</tr>
+				<tr ng-repeat="do in AllLists track by $index">
+						<td>{{do}}</td>
+						<td>
+							<table class="table table-bordered">
+								<tr>
+									<td><i class="glyphicon glyphicon-pencil" ng-click="editToDoList($index)"></i></td>
+									<td><i class="glyphicon glyphicon-remove-sign" ng-click="removeToDoLists($index)"></i></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+			</table>
+			<div ng-if="createdNew" class="col-md-12"><h2>{{todolists.todoname}}</h2></div>
+			<table ng-if="createdNew" class="table table-bordered">
+				<thead>
+					<tr>
+						<th>To-Do List</th>
+						<th>Date</th>
+						<th>Actions</th>
+					<tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="to in allItems track by $index">
+						<td>{{to.itms}}</td>
+						<td>{{to.newdate}}</td>
+						<td>
+							<table class="table table-bordered">
+								<tr>
+									<td><i class="glyphicon glyphicon-pencil" ng-click="editToDos($index)"></i></td>
+									<td><i class="glyphicon glyphicon-remove-sign" ng-click="removeToDos($index)"></i></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
