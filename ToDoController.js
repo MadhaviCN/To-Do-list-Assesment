@@ -68,12 +68,13 @@ app.controller('HomeController', ['$scope', function($scope){
 		//$scope.todolists.todoname = "";
 	}
 	$scope.showAddedList = function(){
-		if($scope.AllLists !== ""){
+		//if($scope.AllLists !== ""){
 			$scope.newToDoListFlag = true;
 			$scope.createdNew = false;
-		}	else{
+			$scope.showEditFlag = false;
+		/* }	else{
 			$scope.newToDoListFlag = false;
-		}	
+		} */	
 	}
 }]); 
 app.directive('jqdatepicker', function () {
