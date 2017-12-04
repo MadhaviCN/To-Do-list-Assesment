@@ -1,7 +1,7 @@
 var app = angular.module('angularApp', []);
 app.controller('HomeController', ['$scope', function($scope){
-    $scope.todovalue = {'items':"WorkOut"};
-	$scope.todolists = {'todoname':"groceries"}
+    $scope.todovalue = {'items':""};
+	$scope.todolists = {'todoname':""}
 	$scope.showSave = false;
 	$scope.showEditFlag = false;
 	$scope.newToDoListFlag = false;
@@ -23,7 +23,6 @@ app.controller('HomeController', ['$scope', function($scope){
 		$scope.AvailableDate.date = "";
 	};
 	$scope.editToDos = function(index){
-		alert(index);
 		$scope.parentndex = index;						
 		$scope.showSave = true;
 		$scope.todovalue.items = $scope.allItems[index].itms;
@@ -35,12 +34,10 @@ app.controller('HomeController', ['$scope', function($scope){
 		$scope.showEditFlag = true;
 		$scope.addNewFlag = false;
 	}
-	$scope.removeToDos = function(index){
-		alert(index);
+	$scope.removeToDos = function(index){s
 		$scope.allItems.splice(index, 1)
 	};
 	$scope.removeToDoLists = function(index){
-		alert(index);
 		$scope.AllLists.splice(index, 1)
 	};
 	$scope.saveToDos = function(){
